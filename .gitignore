@@ -1,0 +1,24 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+out/
+
+# Angular
+node_modules/
+dist/
+.angular/
+
+# IDEs
+.vscode/
+.idea/
+
+# Outros
+.env
+*.log
