@@ -1,0 +1,101 @@
+<div class="toolbar">
+  <button mat-raised-button color="primary">Cadastrar veículo</button>
+  <button mat-raised-button color="accent">Exportar Estoque</button>
+  <button mat-raised-button color="warn">Salvar</button>
+</div>
+
+<form class="filtros" [formGroup]="filtroForm">
+  <mat-form-field>
+    <input matInput placeholder="Placa" formControlName="placa" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Marca" formControlName="marca" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Modelo" formControlName="modelo" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Ano Min" formControlName="anoMin">
+      <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Ano Max" formControlName="anoMax">
+      <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Preço" formControlName="preco">
+      <mat-option value="10-50">10mil a 50mil</mat-option>
+      <mat-option value="50-90">50mil a 90mil</mat-option>
+      <mat-option value="90+">+90mil</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Fotos" formControlName="fotos">
+      <mat-option value="com">Com Fotos</mat-option>
+      <mat-option value="sem">Sem Fotos</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Cor" formControlName="cor">
+      <mat-option *ngFor="let cor of cores" [value]="cor">{{ cor }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="buscar()">Buscar</button>
+</form>
+
+<div class="lista-veiculos">
+  <mat-card *ngFor="let veiculo of veiculos" class="veiculo-card">
+    <div class="foto">
+      <img [src]="veiculo.fotos?.[0] || 'assets/sem-foto.jpg'" />
+    </div>
+
+    <div class="info">
+      <h3>{{ veiculo.marca }} {{ veiculo.modelo }} | {{ veiculo.ano }}</h3>
+      <p>Placa - {{ veiculo.placa }}</p>
+      <p *ngIf="veiculo.km">Km - {{ veiculo.km | number }}</p>
+      <p>Cor - {{ veiculo.cor }}</p>
+      <p class="preco">R$ {{ veiculo.preco | number:'1.2-2' }}</p>
+      <p>{{ veiculo.opcionais?.length }} Opcionais</p>
+    </div>
+
+    <div class="acoes">
+      <button mat-icon-button color="accent" (click)="editar(veiculo)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deletar(veiculo.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <div class="pacotes">
+      <h4>iCarros</h4>
+      <mat-radio-group [(ngModel)]="veiculo.pacotes['iCarros']">
+        <mat-radio-button *ngFor="let p of pacotes" [value]="p">{{ p }}</mat-radio-button>
+      </mat-radio-group>
+
+      <h4>WebMotors</h4>
+      <mat-radio-group [(ngModel)]="veiculo.pacotes['WebMotors']">
+        <mat-radio-button *ngFor="let p of pacotes" [value]="p">{{ p }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-card>
+</div>
+
+<!-- paginação -->
+<div class="paginacao">
+  <button mat-button (click)="paginaAnterior()">«</button>
+  <button mat-button *ngFor="let p of paginas" (click)="irParaPagina(p)" [color]="p === paginaAtual ? 'accent' : ''">
+    {{ p }}
+  </button>
+  <button mat-button (click)="proximaPagina()">»</button>
+</div>

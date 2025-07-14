@@ -1,0 +1,59 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.lista-veiculos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.veiculo-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+
+  .foto img {
+    width: 120px;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .info {
+    flex: 1;
+
+    .preco {
+      font-weight: bold;
+      color: green;
+    }
+  }
+
+  .acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pacotes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    mat-radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 1rem 0;
+}
